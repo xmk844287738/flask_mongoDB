@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>折线图</title>
+	</head>
+	<body>
+		 <!-- 为ECharts准备一个具备大小（宽高）的DOM容器-->
+		<div id="main" style="width: 900px;height: 400px;">
+			
+		</div>
+	</body>
+</html>
+
+<script src="../static/js/echarts.min.js"></script>
+<script>
+	// 初始化echarts实例
+	var myChart = echarts.init(document.getElementById('main'))
+	//指定图表的配置项和数据
+	var option={
+		// 标题
+		title:{
+			// 父标题
+			text:'xxx商店产品销量',
+			// 子标题
+			subtext:'战略分析',
+			// 标题位置
+			// x:'center'
+
+			
+		},
+		// 提示框组件
+		tooltip:{
+			show:'true',
+			trigger:'axis'	//坐标轴触发，主要用于柱状图，折线图等
+		},
+		// 工具栏
+		toolbox:{
+			show: 'true',
+			feature:{
+				// 展现当前图表所用的数据,可编辑  刷新生效
+				dataView: {show:'true', },
+				// 数据区域缩放
+				dataZoom:{show:'true',},
+				// 数据编辑项还原工具
+				restore:{show:'true'}
+			}
+		},
+		// 图例
+		legend:{
+			data:['销量', '收入']
+		},
+		// X轴
+		xAxis:{
+			data:["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+		},
+		// Y轴
+		yAxis:{
+			
+		},
+		// 系列列表。每个系列通过type决定自己的图表类型
+		series:[{
+			name:'销量',
+			type:'bar',	// 折线图 类型
+			data:[5, 20, 36, 10, 10, 20]
+		},
+			{
+              name : '收入',
+              type : 'line',
+				  data : [10 , 20 , 40 , 20 , 25 , 15]
+            }
+		]
+	};
+	 //*必须，绑定图表自适应功能
+    window.onresize = function () {
+         myChart.resize();
+	};
+	// 为实例对象 myChart 设置其属性
+	myChart.setOption(option);
+</script>

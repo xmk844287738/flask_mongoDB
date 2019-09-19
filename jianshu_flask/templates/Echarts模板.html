@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Echarts</title>
+</head>
+<body>
+    <div id="main" style="width: 100%; height: 600px">
+
+    </div>
+</body>
+</html>
+<script src="../static/js/echarts.min.js"></script>
+<script>
+    // echarts 实例化对象
+    var myChart = echarts.init(document.getElementById('main'));
+    // 图表配置信息
+    var opion={
+        // 标题
+        title:{
+            // 父标题
+            text:'fartherTitle',
+            // 子标题
+            subtext:'subTitle',
+            // 标题位置
+			x:'center'
+        },
+        // 提示框组件
+        tooltip:{
+            show:'true',
+        },
+        // 工具栏
+        toolbox:{
+            show: 'true',
+            feature:{
+                // 展现当前图表所用的数据,可编辑  刷新生效
+                dataView:{show:'true'},
+                // 数据区域缩放
+                dataZoom:{show:'true'},
+                // 数据编辑项还原工具
+                restore:{show:'true'}
+            }
+        },
+        // 图例
+        legend:{
+            // exsamplem 例子
+            // data:['图例名字']
+        },
+        // X轴 数据信息
+        xAxis:{
+
+        } ,
+        // Y轴 数据信息
+        yAxis: {
+
+        },
+        // 系列列表。每个系列通过type决定自己的图表类型
+        series:[{
+            name:'',
+            type:'',
+            data:[]
+            }
+        ]
+    };
+    // 为图表对象绑定自适应函数
+    window.onresize = function () {
+        myChart.resize();
+    }
+    // 为 echarts 实例化对象使用 option 的图表配置信息
+    myChart.setOption(option)
+</script>
