@@ -43,14 +43,28 @@ class AnalysisUser():
             return None
 
     # 根据给出的时间点列表，进行时间分片，和时间段统计
-    def extract_time_func(time_list, start, end):
-        pass
+    def extract_time_func(self,time_list, start, end):  # time_list 时间列表  start 开始时间    end结束时间
+        if time_list:
+            user_time_you_want = [time[start:end] for time in time_list]
+            counter_you_want_f = Counter(user_time_you_want)    #from collections import Counter
+            sort_counter = sorted(counter_you_want_f.items(), key=lambda t: t[0])
+            data = {'time_slot': [a[0] for a in sort_counter],
+                    'freqency': [a[1] for a in sort_counter]}
+            return data
+        else:
+            return None
 
 
 
     # 根据给出的得时间列表，以月为时间段，统计每月动态频次
-    def extract_month_data(time_list):
-        pass
+    def extract_month_data(self,time_list):
+        if time_list:
+            data = self.extract_time_func(time_list, 0, 7)
+            month_data = {'month_line': data['time_slot'], 'month_freqency': data['freqency']}
+            # print(month_data)
+            return month_data
+        else:
+            return None
 
     # 根据给出的得时间列表，以周为时间段，统计每周动态频次
     def extract_week_data(time_list):
@@ -109,18 +123,38 @@ class AnalysisUser():
 
 
     def tags_data(self):
-        pass
+        tags_name = [{'name': name} for name in self.zh_parent_tags]    # 列表表达式 [表达式 for 变量 in 列表]，表示把得到的每一个变量值都放到 for 前面的表达式中计算 ，然后生成一个列表
+        tags_value = [{'value': len(self.user_data[tag])} for tag in self.parent_tags]
+        tags_data = [dict(tags_name[i], **tags_value[i]) for i in range(len(tags_name))]
+        return tags_data
 
 
     def all_tags_time(self):
-        pass
+        '''all_tags = ('comment_notes', 'like_notes', 'reward_notes','share_notes',
+                 'like_users', 'like_colls','like_comments', 'like_notebooks')'''
+        all_time_list = []
+        for tag in self.parent_tags:
+            pertime = [each['time'] for each in self.user_data['%s' % tag]]
+            all_time_list.extend(pertime)
+        # 加入简书的时间
+        join_time = self.user_data['join_time']
+        if join_time == None:
+            pass
+        else:
+            all_time_list.append(join_time)
+        return all_time_list
 
     def per_tag_time(self, tag):
-        pass
+          # param tag: 标签，动态的类型  return: 子注册以来，发生该种类型动态的所有时间点
+        per_tag_time = [each['time'] for each in self.user_data['%s' % tag]]    #列表表达式
+        return per_tag_time
 
     # 根据选择对的时间段，得出注册以来所有动态在时间段内的分布统计 param  time_period: 时间段。可选 'month', 'week', 'day', 'hour' 四种类型，分别以月，周，天，小时分类
     def all_tags_data(self,time_period):
-        pass
+        # 根据选择对的时间段，得出注册以来所有动态在时间段内的分布统计  param time_period: 时间段。
+        # 可选 'month', 'week', 'day', 'hour' 四种类型，分别以月，周，天，小时分类
+        if time_period == 'month':
+            all_tags_data = self.extract_month_data(self.all_tags_time())
 
     # 抽出所有评论，进行词频统计，得出该用户评论中最常用的词，并绘制词云
     def get_comment(self):

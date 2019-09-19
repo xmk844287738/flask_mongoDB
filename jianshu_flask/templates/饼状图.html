@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>饼状图</title>
+
+</head>
+<body>
+    <div id="main" style="width: 100%; height: 600px">
+
+    </div>
+</body>
+</html>
+<script src="../static/js/echarts.min.js"></script>
+<script>
+    // 生成一个 echart实例对象
+    var myChart = echarts.init(document.getElementById('main'));
+    // 配置图表相关属性
+    var option={
+        // 标题
+        title:{
+            text:'兴趣分析',
+            subtext: '数据来源: www.jianshu.com',
+            x:'center'
+        },
+        // 组件
+        tooltip:{
+            show:'true',
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        // 工具栏
+        toolbox:{
+            show:'true',
+            feature:{
+                // 展现当前图表所用的数据, 可编辑 刷新生效
+                dataView:{show:'true'},
+                // 数据编辑还原工具
+                restore:{showw:'true'}
+            }
+        },
+        clockwise:false,
+        // 图例
+        legend:{
+            orient: 'vertical',
+            left: '10%',
+            data: ['发表评论','喜欢文章','赞赏文章','发表文章','关注用户','关注专题','点赞评论','关注文集']
+        },
+        // // X轴
+        // xAxis: {
+        //
+        // },
+        // // Y轴
+        // yAxis: {
+        //
+        // },
+        color:['#FF6666','#EFE42A','#64BD3D','#EE9201','#29AAE3',
+                '#B74AE5','#0AAF9F','#E89589'],
+        // 系列列表。每个系列通过type决定自己的图表类型
+        series:[{
+            name: '动态类型',
+            type: 'pie',
+            radius : '75%',
+            center: ['50%', '60%'],
+            data:[{"name": "\u53d1\u8868\u8bc4\u8bba", "value": 6559}, {"name": "\u559c\u6b22\u6587\u7ae0", "value": 1591}, {"name": "\u8d5e\u8d4f\u6587\u7ae0", "value": 468}, {"name": "\u53d1\u8868\u6587\u7ae0", "value": 136}, {"name": "\u5173\u6ce8\u7528\u6237", "value": 1}, {"name": "\u5173\u6ce8\u4e13\u9898", "value": 1}, {"name": "\u70b9\u8d5e\u8bc4\u8bba", "value": 31}, {"name": "\u5173\u6ce8\u6587\u96c6", "value": 11}],
+            itemStyle: {
+                emphasis: {
+                    hadowBlur: 100,
+                    shadowOffsetX: 10,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
+            }
+        }]
+    };
+    //*必须，绑定图表自适应功能
+    window.onresize = function () {
+         myChart.resize();
+	};
+    // 为实例化对象 myChart 配置其属性
+    myChart.setOption(option);
+
+</script>
