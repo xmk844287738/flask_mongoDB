@@ -1,6 +1,7 @@
 import pymongo
 from jianshu_flask.user_analysis import config
-from jianshu_flask.user_analysis.jianshu_timeline import GetAllInfo    # . 当前文件夹
+from jianshu_flask.user_analysis.jianshu_timeline import GetAllInfo
+from collections import Counter# . 当前文件夹
 
 
 
