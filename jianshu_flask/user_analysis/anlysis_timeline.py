@@ -28,13 +28,11 @@ class AnalysisUser():
 
     # '''以下为辅助函数，用来时间提取及统计'''
     def extract_first_tag_time(data):
-        '''
-        根据给出的data，以时间对列表进行排序，返回列表的第一个值，即为数据列表中的第一次动态
-        :param data: 用户某个类型的动态列表，如所有关注用户数据
-                    {'like_users':[{'slug': 'y3Dbcz', 'time': '2013-05-24 18:26:01'},
-                                    {'slug': '2f1c0190679d', 'time': '2014-02-11 13:02:03'}]}
-        :return: 数据列表中的第一次动态
-        '''
+        # 根据给出的data，以时间对列表进行排序，返回列表的第一个值，即为数据列表中的第一次动态
+        # param data: 用户某个类型的动态列表，如所有关注用户数据
+        #{'like_users':[{'slug': 'y3Dbcz', 'time': '2013-05-24 18:26:01'},  {'slug': '2f1c0190679d', 'time': '2014-02-11 13:02:03'}]}
+        # return: 数据列表中的第一次动态
+
         if data:
             sorted_data = sorted(data, key=lambda each: each['time'])
             first_tag_time = sorted_data[0]
