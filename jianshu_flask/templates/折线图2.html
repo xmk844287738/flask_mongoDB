@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Echarts</title>
+</head>
+<body>
+    <div id="main" style="width: 100%; height: 600px">
+
+    </div>
+</body>
+</html>
+<script src="../static/js/echarts.min.js"></script>
+<script>
+    // echarts 实例化对象
+    var myChart = echarts.init(document.getElementById('main'));
+    // 图表配置信息
+    var option={
+        // 渐变线
+        visualMap:{
+          show:true,
+          type:'continuous',
+          seriesIndex: 0,
+          color:['red','orange','yellow','lightskyblue']
+        },
+
+        // 标题
+        title:{
+            // 父标题
+            text:'各个月份的动态次数',
+            // 子标题
+            subtext:'数据来源: www.jianshu.com',
+            // 标题位置
+			left: 'center',
+        },
+        // 提示框组件
+        tooltip:{
+            show:'true',
+            trigger:'axis'
+
+        },
+        // 工具栏
+        toolbox:{
+            show: 'true',
+            feature:{
+                // 展现当前图表所用的数据,可编辑  刷新生效
+                dataView:{show:'true'},
+                // 数据区域缩放
+                dataZoom:{show:'true'},
+                // 数据编辑项还原工具
+                restore:{show:'true'}
+            }
+        },
+        // 图例
+        // legend:{
+        //     // exsamplem 例子
+        //     // data:['图例名字']
+        // },
+        // X轴 数据信息
+        xAxis:{
+            data: ["2016-08", "2016-09", "2016-10", "2016-11", "2016-12", "2017-01", "2017-02", "2017-03", "2017-04", "2017-05", "2017-06", "2017-07", "2017-08", "2017-09", "2017-10", "2017-11", "2017-12", "2018-01", "2018-02", "2018-03", "2018-04", "2018-05", "2018-06", "2018-07", "2018-08"],
+            name: '月份'
+        } ,
+        // Y轴 数据信息
+        yAxis: {
+            name:'动态数据',
+            splitLine:{show:false}
+
+        },
+        grid:{
+          top:'10%',
+          bottom:'6%'
+        },
+        // 系列列表。每个系列通过type决定自己的图表类型
+        series:[{
+            // name:'',
+            type:'line',
+            showSymbol: false,
+            data:[9, 77, 273, 523, 509, 678, 1008, 974, 308, 316, 605, 273, 356, 210, 354, 300, 192, 243, 192, 390, 219, 282, 226, 210, 72],
+            markPoint:{
+                data:[{type : 'max',
+                       name: '最大值'
+                      }]
+                },
+            markLine:{
+                data:[
+                    {
+                        type:'average',
+                        name:'平均值',
+                        label:{
+                            normal:{
+                                position:'end',
+                                formatter:'月平均值:{c}'
+                            }
+                        }
+                    },
+                    {
+                        type: 'max',
+                        name: '最大值',
+                        label: {
+                            normal: {
+                                position: 'end',
+                                formatter: '最大值'
+                            }
+                        }
+                    }
+                ]
+               }
+            }]
+    };
+    // 为图表对象绑定自适应函数
+    window.onresize = function () {
+        myChart.resize();
+    }
+    // 为 echarts 实例化对象使用 option 的图表配置信息
+    myChart.setOption(option)
+</script>
