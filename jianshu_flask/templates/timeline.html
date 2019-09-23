@@ -119,7 +119,7 @@
         <div class="section" id="share_note_month">
             <div id="share_month_chart" style="width: 100%; height: 600px"></div>
         </div>
-        <!--        7.散点图 (一周中发表文章时间频率分布)-->
+        <!--        7.if条件判断 散点图 (一周中发表文章时间频率分布)-->
         <div class="section" id="share_note_week_hour">
             <div id="share_note_week_hour_chart" style="width: 100%; height: 600px"></div>
         </div>
@@ -213,7 +213,74 @@
 <script type="text/javascript">
     var myChart2 = echarts.init(document.getElementById('monthline_chart'));
     var option = {
-
+        visualMap:{
+            show:false,
+            type: 'continuous',
+            seriesIndex: 0,
+            color: ['red','orange','yellow','lightskyblue']
+        },
+        title: {
+            left: 'center',
+            text: '各个月份的动态次数',
+            subtext:'数据来源: www.jianshu.com'
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        xAxis:{
+           data: {{month_data['month_line']|tojson}},
+           name:'月份'
+        },
+        yAxis:{
+           splitLine: {show: false},
+           name:'动态次数'
+        },
+        grid:{
+            bottom:'6%',
+            top:'10%'
+        },
+        series: {
+            type: 'line',
+            showSymbol: false,
+            data:{{month_data['month_freqency']|tojson}},
+            markPoint:{
+                data:[
+                    {
+                        type:'max',
+                        name:'最大值',
+                        // 箭头 样式
+                        symbol:'arrow'
+                    },
+                    {
+                        type:'min',
+                        name:'最小值'
+                    }
+                ]
+            },
+            markLine:{
+                data:[
+                    {
+                        type:'average',
+                        name:'平均值',
+                        label:{
+                            normal:{
+                                position: 'end',
+                                formatter: '月平均值:{c}'
+                            }
+                        }
+                    },
+                    {
+                        type:'max', name: '最大值',
+                        label: {
+                            normal: {
+                                position: 'end',
+                                formatter:'最大值'
+                            }
+                        }
+                    }
+                ]
+            }
+        }
     };
     window.onresize =function (){
         myChart2.resize();
@@ -269,7 +336,7 @@
     myChart6.setOption(option)
 </script>
 
-<!--7.散点图 (各个月份的发表文章次数) => scatter-->
+<!--7.散点图 (一周中发表文章时间频率分布) => scatter-->
 <script type="text/javascript">
     var myChart7 = echarts.init(document.getElementById('share_note_week_hour_chart'));
     var option = {
