@@ -5,13 +5,15 @@
     <title>气泡图</title>
 </head>
 <body>
-    <div id="main" style="width: 100%; height: 600px">
+    <div id="main" style="width: 100%; height: 600px;display: block">
 
     </div>
+    <button type="button" id="btn2">显示</button>
 </body>
 </html>
 <script src="../static/js/echarts.min.js"></script>
 <script type="text/javascript">
+    var btn2 = document.getElementById('btn2')
     // echarts 实例化对象
     var myChart = echarts.init(document.getElementById('main'));
     // 图表的数据
@@ -86,4 +88,16 @@
     };
     // 为 echarts 实例化对象使用 option 的图表配置信息
     myChart.setOption(option);
+
+    var flag = false
+    btn2.onclick= function () {
+        if (!flag) {
+            document.getElementById('main').style.display = 'none';
+            console.log(flag)
+        } else {
+            document.getElementById('main').style.display = 'block';
+            console.log(flag)
+        }
+        flag = !flag
+    }
 </script>

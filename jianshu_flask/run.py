@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
-from pyecharts.charts import WordCloud
+from pyecharts import WordCloud
 from jianshu_flask.user_analysis import config,anlysis_timeline
 import re
 
@@ -12,8 +12,9 @@ app = Flask(__name__)
 def geturl():
     if request.method == 'POST':
         form_value = request.form['url']
-        match_result = re.match(r'(http://)?(www.jianshu.com/u/)?(\w{6}|\w{12})$', form_value)  #例子： https://www.jianshu.com/u/485ed2eb0d8a
-        # print(match_result)
+        print(form_value)
+        match_result = re.match(r'(https://)?(www.jianshu.com/u/)?(\w{6}|\w{12})$', form_value)  #例子： https://www.jianshu.com/u/485ed2eb0d8a
+        print(match_result)
         if match_result:
             user_slug = match_result.groups()[-1]
             return redirect(url_for('jianshu_timeline', slug=user_slug))
@@ -25,7 +26,7 @@ def geturl():
 
 
 # 路由视图函数
-@app.route('/timeline',methods=['GET', 'POST'])
+@app.route('/timeline')
 def jianshu_timeline():
     slug = request.args.get('slug')
     args = config.TIMELINE_TYPES    # config 自定义配置文件
@@ -33,11 +34,12 @@ def jianshu_timeline():
     baseinfo = user.get_baseinfo()
     first_tag_time = user.get_first_tag_time()
     tags_data = user.tags_data()
+    # 调试运行！！！
     all_month_data = user.all_tags_data(time_period='month')
     all_day_data = user.all_tags_data(time_period='day')
     all_hour_data = user.all_tags_data(time_period='hour')
     all_week_data = user.all_tags_data(time_period='week')
-    share_month_data = user.one_tag_data('share_notes', 'month')
+    share_month_data = user.one_tag_data('share_notes', 'month')   # 'share_notes'=>tag 'month' =>time_period
 
     week_hour = {}
     for each in args[:5]:
@@ -46,6 +48,7 @@ def jianshu_timeline():
         else:
             week_hour[each] = []
     comments = user.get_comment()
+    # 重定向至 timeline.html 页面
     return render_template('timeline.html',
                            baseinfo=baseinfo,
                            first_tag_time=first_tag_time,

@@ -19,6 +19,7 @@ NEWSPIDER_MODULE = 'jianshu_spider.spiders'
 #USER_AGENT = 'jianshu_spider (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
+# 机器协议
 ROBOTSTXT_OBEY = False
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
@@ -27,6 +28,7 @@ ROBOTSTXT_OBEY = False
 # Configure a delay for requests for the same website (default: 0)
 # See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
+# 下载延时
 DOWNLOAD_DELAY = 3
 # The download delay setting  will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
@@ -66,6 +68,7 @@ DOWNLOAD_DELAY = 3
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
+   # 文件处理函数
    'jianshu_spider.pipelines.UserMongoPipeline': 300,
 }
 
@@ -89,5 +92,8 @@ ITEM_PIPELINES = {
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+# mongDB 主机地址
 MONGO_HOST = 'localhost'
+# mongoDB数据库名字
 MONGO_DATABASE = 'JianShu'

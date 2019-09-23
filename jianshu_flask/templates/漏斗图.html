@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>漏斗图</title>
+</head>
+<body>
+    <div id="main" style="display: block ;width: 60%; height: 600px;">
+
+    </div>
+<!--    <button type="button" id="btn1">隐藏</button>&nbsp;&nbsp;&nbsp;-->
+    <button type="button" id="btn2">显示</button>
+</body>
+</html>
+<script src="../static/js/echarts.min.js"></script>
+<script type="text/javascript">
+    // var btn1 = document.getElementById('btn1')
+    var btn2 = document.getElementById('btn2')
+    // echarts 实例化对象
+    var myChart = echarts.init(document.getElementById('main'));
+    // 图表配置信息
+    var option={
+        // 标题
+        title:{
+            // 父标题
+            text:'漏斗图',
+            // 子标题
+            subtext:'subTitle',
+            // 标题位置
+			// x:'center'
+        },
+        // 提示框组件
+        tooltip:{
+            show:'true',
+        },
+        // 工具栏
+        toolbox:{
+            show: 'true',
+            feature:{
+                dataView: {show: true},
+                restore: {show:true},
+                saveAsImage: {}
+            }
+        },
+        // 图例
+        legend:{
+            // exsamplem 例子
+            data:['展现','点击','访问','咨询','订单']
+        },
+        // // X轴 数据信息
+        // xAxis:{
+        //
+        // },
+        // // Y轴 数据信息
+        // yAxis: {
+        //
+        // },
+        // 系列列表。每个系列通过type决定自己的图表类型
+        series:[{
+            name:'漏斗图',
+            type:'funnel',
+            left:'10%',
+            width:'80%',
+            top:60,
+            bottom:60,
+            min:0,
+            max:100,
+            minSize:'0%',
+            maxSize:'100%',
+            sort:'descending',
+            gap:2,
+            label:{
+                show:true,
+                position:'inside'
+            },
+            labelLine:{
+                length:10,
+                lineStyle: {
+                    width: 1,
+                    type: 'solid'
+                }
+            },
+            emphasis:{
+              label:{fontSize:20}
+            },
+            itemStyle: {
+                borderColor: '#fff',
+                borderWidth: 1
+            },
+            emphasis:{
+               label:{fontSize: 20}
+            },
+            data:[
+                {value: 60, name: '访问'},
+                {value: 40, name: '咨询'},
+                {value: 20, name: '订单'},
+                {value: 80, name: '点击'},
+                {value: 100, name: '展现'}
+                ]
+            }
+        ]
+    };
+    // 为图表对象绑定自适应函数
+    window.onresize = function () {
+        myChart.resize();
+    }
+    // 为 echarts 实例化对象使用 option 的图表配置信息
+    myChart.setOption(option)
+    var flag = false
+    btn2.onclick= function () {
+        if (!flag){
+            document.getElementById('main').style.display = 'none';
+            console.log(flag)
+        }else {
+            document.getElementById('main').style.display = 'block';
+            console.log(flag)
+        }
+        flag = !flag
+    }
+    // btn1.onclick= function () {
+    //     document.getElementById('main').style.display = 'none';
+    //     console.log("11111")
+    // }
+    // btn2.onclick= function () {
+    //     document.getElementById('main').style.display = 'inline-block';
+    //     console.log("33333")
+    // }
+</script>

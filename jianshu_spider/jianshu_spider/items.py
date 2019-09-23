@@ -6,8 +6,7 @@
 # https://docs.scrapy.org/en/latest/topics/items.html
 
 import scrapy
-
-
+# 存储在 mongoDB 数据库的 collection(table) 集合/表模型
 class JianshuUserBaseInfoItem(scrapy.Item):
     # define the fields for your item here like:
     nickname = scrapy.Field()

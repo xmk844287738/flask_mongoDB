@@ -43,7 +43,11 @@
 				// 数据区域缩放
 				dataZoom:{show:'true',},
 				// 数据编辑项还原工具
-				restore:{show:'true'}
+				restore:{show:'true'},
+				// 数据动态显示切换
+				magicType:{
+					type:['line','bar']
+				}
 			}
 		},
 		// 图例
@@ -74,13 +78,29 @@
 						return colorList[params.dataIndex]
 					}
 				}
+			},
+			// 划线
+			markLine:{
+				data:[
+						{type:'average', name: '平均值', symbol: 'roundRect'},
+						{type: 'max',name: '最大值'},
+						{type: 'min',name: '最小值'}
+				]
+			},
+			// 描点
+			markPoint:{
+				data:[
+					{type:'max', name:'最大值'},
+						// symbol 描点样式
+					{type: 'min',name: '最小值', symbol:'pin'}
+				]
 			}
 		},
-			{
-              name : '收入',
-              type : 'line',	//折现图 类型
-				  data : [10 , 20 , 40 , 20 , 25 , 15]
-            }
+			// {
+            //   name : '收入',
+            //   type : 'line',	//折现图 类型
+			// 	  data : [10 , 20 , 40 , 20 , 25 , 15]
+            // }
 
 
 		]
