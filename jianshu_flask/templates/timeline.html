@@ -24,7 +24,7 @@
                 点赞别人评论<b style="color:#FA8072">{{ baseinfo['like_comments_num'] }}</b>次。</p>
                 <p>打赏文章<b style="color:#FA8072">{{ baseinfo['reward_notes_num'] }}</b>次</p>
             </div>
-        </div>
+        </div>s
         <div class="section" id="firt_tag_time">
             <div align="center">
                 <h3>加入简书以来的第一次</h3>
@@ -54,27 +54,50 @@
                     </p>
                 {% endif %}
 <!--                第一次关注专题-->
-                {% if %}
-
+                {% if first_tag_time['first_like_coll'] %}
+                    <P>
+                        <b style="color: #FA8072">{{ first_tag_time['first_like_coll']['time']|safe }}</b>
+                        &nbsp;
+                        <a href="http://www.jianshu.com/u/{{ first_tag_time['first_like_coll']['slug']|safe }}" target="_blank">第一次关注专题</a>
+                    </P>
                 {% endif %}
 <!--                第一次关注文集-->
-                {% if %}
-
+                {% if first_tag_time['first_like_nb'] %}
+                    <P>
+                        <b style="color: #FA8072">{{ first_tag_time['first_like_nb']['time']|safe }}</b>
+                        &nbsp;
+                        <a href="http://www.jianshu.com/u/{{ first_tag_time['first_like_nb']['slug']|safe }}" target="_blank">第一次关注文集</a>
+                    </P>
                 {% endif %}
 <!--                第一次发表评论-->
-                {% if %}
-
+                {% if first_tag_time['first_comment'] %}
+                    <P>
+                        <b style="color: #FA8072">{{ first_tag_time['first_comment']['time']|safe }}</b>
+                        &nbsp;
+                        <a href="http://www.jianshu.com/u/{{ first_tag_time['first_comment']['slug']|safe }}" target="_blank">第一次发表评论</a>
+                    </P>
                 {% endif %}
 <!--                第一次赞了评论-->
-                {% if %}
-
+                {% if first_tag_time['first_like_comment'] %}
+                    <P>
+                        <b style="color: #FA8072">{{ first_tag_time['first_like_comment']['time']|safe }}</b>
+                        &nbsp;
+                        <a href="http://www.jianshu.com/u/{{ first_tag_time['first_like_comment']['slug']|safe }}" target="_blank">第一次赞了评论</a>
+                    </P>
                 {% endif %}
 <!--                第一次打赏文章-->
-                {% if %}
-
+                {% if first_tag_time['first_reward_note'] %}
+                    <P>
+                        <b style="color: #FA8072">{{ first_tag_time['first_reward_note']['time']|safe }}</b>
+                        &nbsp;
+                        <a href="http://www.jianshu.com/u/{{ first_tag_time['first_reward_note']['slug']|safe }}" target="_blank">第一次打赏评论</a>
+                    </P>
                 {% endif %}
-
             </div>
+        </div>
+        <div class="section" id="tags_percent">
+            <div id="tags_chart" style="width: 100%; height: 600px"></div>
+
         </div>
     </div>
 </body>
@@ -92,4 +115,56 @@
             sectionsColor:"#666666"
         });
     });
+</script>
+<!--饼图-->
+<script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('tags_chart'));
+    // 图表配置数据
+    var option = {
+        title:{
+            text: '用户动态类型',
+            subtext: '数据来源: www.jianshu.com',
+            x:'center'
+        },
+        tooltip:{
+            show:true,
+            trigger: 'item'
+        },
+        toolbox:{
+          show: true,
+          feature:{
+              dataView:{show: true}
+          }
+        },
+        clockwise:false,
+        legend:{
+            orient: 'vertical',
+            left: '10%',
+            data: ['发表评论','喜欢文章','赞赏文章','发表文章','关注用户','关注专题','点赞评论','关注文集']
+        },
+        color:['#FF6666','#EFE42A','#64BD3D','#EE9201','#29AAE3',
+                '#B74AE5','#0AAF9F','#E89589'],
+        series:[{
+            name: '动态类型',
+            type: 'pie',
+            radius : '75%',
+            center: ['50%', '60%'],
+            data:{{ tags_data|tojson }},
+            itemStyle:{
+                emphasis:{
+                    shadowBlur: 100,
+                    shadowOffsetX: 10,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                    }
+                ]
+
+    };
+    // 为图表绑定自适应功能
+    window.onresize = function (){
+        myChart.resize();
+    };
+    // 为图表设置应用配置数据
+    myChart.setOption(option)
 </script>

@@ -39,7 +39,7 @@ def jianshu_timeline():
     all_day_data = user.all_tags_data(time_period='day')
     all_hour_data = user.all_tags_data(time_period='hour')
     all_week_data = user.all_tags_data(time_period='week')
-    share_month_data = user.one_tag_data('share_notes', 'month')   # 'share_notes'=>tag 'month' =>time_period
+    share_month_data = user.one_tag_data('share_notes', 'month')   # 参数对应'share_notes'=>tag 'month' =>time_period
 
     week_hour = {}
     for each in args[:5]:
