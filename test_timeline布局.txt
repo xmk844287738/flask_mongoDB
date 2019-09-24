@@ -1,0 +1,32 @@
+1.tags_data|tojson =>pie 
+饼图 (用户动态类型)
+
+2.month_data['month_freqency']|tojson => line
+折线图 (各个月份的动态次数)
+
+3.day_data['day_freqency']|tojson => line
+折线图 (每天的动态次数)
+
+4.hour_data['hour_freqency']|tojson => line
+折线图 (一天中各时间点的动态次数)
+
+5.week_data['week_freqency']|tojson => bar
+柱状图 (一周中的动态情况)
+
+6.share_month_data['month_freqency']|tojson => line
+折线图 (各个月份的发表文章次数)
+
+7.  		=> scatter
+散点图 (一周中发表文章时间频率分布)
+
+8.		=> scatter
+散点图    (一周中喜欢文章时间频率分布)
+
+9.		=> scatter
+散点图   (一周中关注用户时间频率分布)
+
+10.		=> scatter
+散点图   (一周中发表评论时间频率分布)	
+
+11.		=> scatter
+散点图    (一周中打赏时间频率分布)
