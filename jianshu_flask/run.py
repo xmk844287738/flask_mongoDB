@@ -13,13 +13,17 @@ def geturl():
     if request.method == 'POST':
         form_value = request.form['url']
         print(form_value)
-        match_result = re.match(r'(https://)?(www.jianshu.com/u/)?(\w{6}|\w{12})$', form_value)  #例子： https://www.jianshu.com/u/485ed2eb0d8a
-        print(match_result)
-        if match_result:
-            user_slug = match_result.groups()[-1]
+        if form_value = '': # 输入框为空的情况下，指定 user_slug = 'b3908625c949'
+            user_slug = 'b3908625c949'
             return redirect(url_for('jianshu_timeline', slug=user_slug))
-        else:
-            return render_template('index.html', error_msg='输入的用户主页有问题！请重新输入！')
+        else: # 调用正则表达式 对用户主页进行验证
+            match_result = re.match(r'(https://)?(www.jianshu.com/u/)?(\w{6}|\w{12})$', form_value)  #例子： https://www.jianshu.com/u/485ed2eb0d8a
+            print(match_result)
+            if match_result:
+                user_slug = match_result.groups()[-1]
+                return redirect(url_for('jianshu_timeline', slug=user_slug))
+            else:
+                return render_template('index.html', error_msg='输入的用户主页有问题！请重新输入！')        
     else:
         return render_template('index.html')  # 返回主页
 
